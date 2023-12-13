@@ -1,6 +1,6 @@
 
 export const apiConfig = {
-  baseUrl: `https://api.sergey.domain.mesto.nomoredomainsmonster.ru`,
+  baseUrl: `https://api.sergey.mesto.nomoredomainsmonster.ru`,
   headers: {
     "Content-Type": "application/json",
   },
