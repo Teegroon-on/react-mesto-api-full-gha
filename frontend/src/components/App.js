@@ -33,15 +33,17 @@ function App() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    api.getUserInfo().then(setCurrentUser).catch(console.error);
+    if (isLoggedIn) {
+      api.getUserInfo().then(setCurrentUser).catch(console.error);
 
-    api
-      .getInitialCards()
-      .then((res) => {
-        setCards(res);
-      })
-      .catch(console.error);
-  }, []);
+      api
+        .getInitialCards()
+        .then((res) => {
+          setCards(res);
+        })
+        .catch(console.error);
+    }
+  }, [isLoggedIn]);
 
   // Функции открытия/закрытия попапов
   function handleEditAvatarClick() {
@@ -137,6 +139,7 @@ function App() {
       auth
         .checkToken(token)
         .then((res) => {
+          api.setToken(token);
           setEmail(res.data.email);
           setIsLoggedIn(true);
           navigate("/");

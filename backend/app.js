@@ -29,13 +29,19 @@ mongoose
     console.error(err);
   });
 
-app.use(limiter);
-
 app.use(cors());
 
 app.use(requestLogger);
 
+app.use(limiter);
+
 app.use(helmet());
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Краш-тест сервера!');
+  }, 0);
+});
 
 app.use(routes);
 
