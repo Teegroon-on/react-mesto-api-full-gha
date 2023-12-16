@@ -28,7 +28,6 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [email, setEmail] = React.useState("");
 
   const navigate = useNavigate();
 
@@ -135,12 +134,12 @@ function App() {
   // Авторизация
   React.useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log(token)
     if (token) {
       auth
         .checkToken(token)
         .then((res) => {
           api.setToken(token);
-          setEmail(res.data.email);
           setIsLoggedIn(true);
           navigate("/");
         })
@@ -173,7 +172,7 @@ function App() {
                   cards={cards}
                   onCardLike={handleCardLike}
                   onCardDelete={handleCardDelete}
-                  email={email}
+                  email={currentUser.email}
                   onLogout={handleLogout}
                 />
               </ProtectedRoute>

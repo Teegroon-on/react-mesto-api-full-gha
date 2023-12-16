@@ -28,7 +28,7 @@ async function deleteCard(req, res, next) {
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Ошибка! Такая карточка не найдена');
-      } else if (card.owner.toString() !== req.user._id) {
+      } else if (card.owner._id.toString() !== req.user._id) {
         throw new ForbiddenError('Ошибка! Нельзя удалить чужую карточку');
       }
       return Card.findByIdAndRemove(cardId).then(() => res.send({ message: 'Карточка успешно удалена' }));
